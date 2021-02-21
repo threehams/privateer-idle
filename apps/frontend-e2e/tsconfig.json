@@ -1,0 +1,27 @@
+{
+  "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "paths": {
+      "@thing/messages": ["../../libs/messages/index.ts"],
+      "@thing/ui": ["../../libs/ui/index.ts"],
+      "@thing/commands": ["../../libs/commands/index.ts"],
+      "@thing/utils": ["../../libs/utils/index.ts"],
+      "@thing/store": ["../../libs/store/index.ts"],
+      "@thing/worker": ["../../libs/worker/index.ts"],
+      "@thing/data": ["../../libs/data/index.ts"]
+    },
+    "strict": true,
+    "target": "es2015",
+    "composite": true,
+    "noEmit": false,
+    "emitDeclarationOnly": true,
+    "sourceMap": false,
+    "outDir": "../../dist/out-tsc",
+    "allowJs": true,
+    "types": ["cypress", "node", "@types/testing-library__cypress"]
+  },
+  "include": ["./**/*.ts", "./**/*.js"]
+}

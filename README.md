@@ -18,7 +18,7 @@ Old versions might work, but are not tested.
 `$ nvm use 16`
 
 `$ pnpm install` to install all dependencies
-`$ npx nx serve frontend` to start and open a dev server
+`$ npm run dev` to start and open a dev server
 
 ## Tests
 

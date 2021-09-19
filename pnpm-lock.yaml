@@ -5,6 +5,7 @@ overrides:
 
 specifiers:
   '@cassiozen/usestatemachine': ^0.4.1
+  '@fluentui/react-context-selector': ^0.53.4
   '@next/bundle-analyzer': ^11.0.1
   '@testing-library/cypress': ^7.0.6
   '@testing-library/react': 12.0.0
@@ -46,6 +47,7 @@ specifiers:
 
 dependencies:
   '@cassiozen/usestatemachine': 0.4.1_react@17.0.2
+  '@fluentui/react-context-selector': 0.53.4_feb38eca05fb6b816d8b1d044961447a
   app-root-path: 3.0.0
   clsx: 1.1.1
   immer: 9.0.5
@@ -618,6 +620,23 @@ packages:
       - supports-color
     dev: true
 
+  /@fluentui/react-context-selector/0.53.4_feb38eca05fb6b816d8b1d044961447a:
+    resolution: {integrity: sha512-gTZsDlwd256Vbk39HIfay1p1D6buAFecdE/tH5DXEJX3oobiGcCQ0f2/9UedX8kPLLsQQUWglM242MFRZPn8tw==}
+    peerDependencies:
+      '@types/react': '>=16.8.0 <17.0.0'
+      '@types/react-dom': '>=16.8.0 <17.0.0'
+      react: '>=16.8.0 <17.0.0'
+      react-dom: '>=16.8.0 <17.0.0'
+    dependencies:
+      '@types/react': 17.0.14
+      '@types/react-dom': 17.0.9
+      '@types/scheduler': 0.16.2
+      react: 17.0.2
+      react-dom: 17.0.2_react@17.0.2
+      scheduler: 0.20.2
+      tslib: 1.14.1
+    dev: false
+
   /@fullhuman/postcss-purgecss/4.0.3_postcss@8.3.5:
     resolution: {integrity: sha512-/EnQ9UDWGGqHkn1UKAwSgh+gJHPKmD+Z+5dQ4gWT4qq2NUyez3zqAfZNwFH3eSgmgO+wjTXfhlLchx2M9/K+7Q==}
     peerDependencies:
@@ -1155,7 +1174,6 @@ packages:
 
   /@types/scheduler/0.16.2:
     resolution: {integrity: sha512-hppQEBDmlwhFAXKJX2KnWLYu5yMfi91yazPb2l+lbJiwW+wdo1gNeRA+3RgNSO39WYX2euey41KEwnqesU2Jew==}
-    dev: true
 
   /@types/sinonjs__fake-timers/6.0.3:
     resolution: {integrity: sha512-E1dU4fzC9wN2QK2Cr1MLCfyHM8BoNnRFvuf45LYMPNDA+WqbNzC45S4UzPxvp1fFJ1rvSGU0bPvdd35VLmXG8g==}
@@ -6327,7 +6345,6 @@ packages:
 
   /tslib/1.14.1:
     resolution: {integrity: sha512-Xni35NKzjgMrwevysHTCArtLDpPvye8zV/0E4EyYn43P7/7qvQwPh9BGkHewbMulVntbigmcT7rdX3BNo9wRJg==}
-    dev: true
 
   /tslib/2.3.1:
     resolution: {integrity: sha512-77EbyPPpMz+FRFRuAFlWMtmgUWGe9UOG2Z25NqCwiIjRhOf5iKGuzSe5P2w1laq+FkRy4p+PCuVkJSGkzTEKVw==}

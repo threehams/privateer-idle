@@ -17,15 +17,16 @@ localForage.config({
 enablePatches();
 const worker = self as unknown as Worker;
 
+const initialState: State = {
+  count: 0,
+  autoIncrement: 0,
+  timers: {
+    autoIncrement: 0,
+  },
+};
+
 const main = async () => {
   const getSavedGame = async () => {
-    const initialState: State = {
-      count: 0,
-      autoIncrement: 0,
-      timers: {
-        autoIncrement: 0,
-      },
-    };
     const savedGame = (await localForage.getItem(savedGameKey)) as State;
     return savedGame ?? initialState;
   };
@@ -41,11 +42,14 @@ const main = async () => {
     const action = event.data;
 
     const [nextState, patches] = produceWithPatches(state, (draft) => {
+      if (action.type === "RESET_GAME") {
+        localForage.removeItem(savedGameKey);
+        return initialState;
+      }
       return eventHandler(draft, action);
     });
 
     state = nextState;
-
     if (patches.length) {
       worker.postMessage({ type: "UPDATE", payload: patches });
     }
@@ -62,6 +66,7 @@ const main = async () => {
     const [nextState, patches] = produceWithPatches(state, (draft) => {
       gameLoop(draft, delta);
     });
+
     state = nextState;
     if (patches.length) {
       worker.postMessage({ type: "UPDATE", payload: patches });

@@ -1,6 +1,9 @@
 import React from "react";
 import { useWorker } from "@thing/worker";
-import { Button } from "@thing/ui";
+import { DispatchProvider, StateProvider } from "./StateProvider";
+import { Status } from "./Status";
+import { Actions } from "./Actions";
+import { Reset } from "./Reset";
 
 export const Game = () => {
   const { state, dispatch } = useWorker();
@@ -10,30 +13,12 @@ export const Game = () => {
   }
 
   return (
-    <div>
-      <div>
-        You have {state.count} thing{state.count === 1 ? "" : "s"}.{" "}
-        {!!state.autoIncrement && (
-          <>
-            Making {state.autoIncrement} thing
-            {state.autoIncrement === 1 ? "" : "s"} per second
-          </>
-        )}
-      </div>
-      <Button
-        onClick={() => {
-          dispatch({ type: "INCREMENT" });
-        }}
-      >
-        Make a thing
-      </Button>
-      <Button
-        onClick={() => {
-          dispatch({ type: "AUTO_INCREMENT" });
-        }}
-      >
-        Make a thing maker (costs {(state.autoIncrement + 1) * 10} things)
-      </Button>
-    </div>
+    <StateProvider value={state}>
+      <DispatchProvider value={dispatch}>
+        <Status />
+        <Actions />
+        <Reset />
+      </DispatchProvider>
+    </StateProvider>
   );
 };

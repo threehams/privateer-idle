@@ -7,8 +7,8 @@ export const eventHandler = (state: Draft<State>, action: ReduxAction) => {
       state.count += 1;
       break;
     case "AUTO_INCREMENT": {
-      if (state.count >= 10) {
-        state.count -= 10;
+      if (state.count >= 10 * state.autoIncrement) {
+        state.count -= 10 * state.autoIncrement;
         state.autoIncrement += 1;
         break;
       }

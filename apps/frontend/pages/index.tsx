@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Game } from "../components/Game";
+import { GameProvider } from "../components/GameProvider";
 
 export const Index = () => {
   const [mounted, setMounted] = useState(false);
@@ -11,7 +11,7 @@ export const Index = () => {
     return <div>Loading...</div>;
   }
 
-  return <Game />;
+  return <GameProvider />;
 };
 
 export default Index;

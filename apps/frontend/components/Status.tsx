@@ -1,11 +1,14 @@
 import { useSelector } from "./StateProvider";
 
-export const Status = () => {
+type Props = {
+  className?: string;
+};
+export const Status = ({ className }: Props) => {
   const count = useSelector((state) => state.count);
   const autoIncrement = useSelector((state) => state.count);
 
   return (
-    <div>
+    <div className={className}>
       You have {count} thing{count === 1 ? "" : "s"}.{" "}
       {!!autoIncrement && (
         <>

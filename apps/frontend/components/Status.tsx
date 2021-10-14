@@ -5,7 +5,7 @@ type Props = {
 };
 export const Status = ({ className }: Props) => {
   const count = useSelector((state) => state.count);
-  const autoIncrement = useSelector((state) => state.count);
+  const autoIncrement = useSelector((state) => state.autoIncrement);
 
   return (
     <div className={className}>

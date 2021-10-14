@@ -3,6 +3,6 @@ describe("things", () => {
     cy.visit("/");
     cy.findByText("You have 0 things.");
     cy.findByText("Make a thing").click();
-    cy.findByText("You have 1 thing.");
+    cy.findByText(/You have 1 thing/i);
   });
 });

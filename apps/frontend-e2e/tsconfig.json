@@ -23,5 +23,10 @@
     "allowJs": true,
     "types": ["cypress", "node", "@types/testing-library__cypress"]
   },
-  "include": ["./**/*.ts", "./**/*.js"]
+  "include": [
+    "./**/*.ts",
+    "./**/*.js",
+    "../../jest.setup.js",
+    "../../jest.setup.js"
+  ]
 }

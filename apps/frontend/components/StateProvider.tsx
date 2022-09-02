@@ -2,11 +2,11 @@ import {
   createContext,
   useContextSelector,
 } from "@fluentui/react-context-selector";
-import { ReduxAction, State } from "@thing/store";
+import { StateAction, State } from "@thing/store";
 import { createContext as reactCreateContext, useContext } from "react";
 
 const StateContext = createContext<State>(undefined as any);
-const DispatchContext = reactCreateContext<(action: ReduxAction) => void>(
+const DispatchContext = reactCreateContext<(action: StateAction) => void>(
   undefined as any,
 );
 

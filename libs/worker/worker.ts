@@ -1,7 +1,8 @@
-import { ReduxAction, State } from "@thing/store";
+import { StateAction, State, initialState } from "@thing/store";
 import { enablePatches, produceWithPatches } from "immer";
 import localForage from "localforage";
 import { eventHandler, gameLoop } from "./gameLoop";
+import { migrateSave } from "./migrateSave";
 
 const VERSION = 1;
 
@@ -17,18 +18,13 @@ localForage.config({
 enablePatches();
 const worker = self as unknown as Worker;
 
-const initialState: State = {
-  count: 0,
-  autoIncrement: 0,
-  timers: {
-    autoIncrement: 0,
-  },
-};
-
 const main = async () => {
   const getSavedGame = async () => {
     const savedGame = (await localForage.getItem(savedGameKey)) as State;
-    return savedGame ?? initialState;
+    if (!savedGame) {
+      return initialState;
+    }
+    return migrateSave(savedGame);
   };
 
   let state = await getSavedGame();
@@ -38,13 +34,17 @@ const main = async () => {
     localForage.setItem(savedGameKey, state);
   }, 5000);
 
-  worker.addEventListener("message", (event: { data: ReduxAction }) => {
+  worker.addEventListener("message", (event: { data: StateAction }) => {
     const action = event.data;
 
     if (action.type === "READY") {
       worker.postMessage({ type: "INITIAL", payload: state });
     }
     const [nextState, patches] = produceWithPatches(state, (draft) => {
+      if (action.type === "IMPORT_GAME") {
+        localForage.setItem(savedGameKey, JSON.parse(action.payload.value));
+        return;
+      }
       if (action.type === "RESET_GAME") {
         localForage.removeItem(savedGameKey);
         return initialState;

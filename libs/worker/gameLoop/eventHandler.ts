@@ -1,7 +1,7 @@
-import { ReduxAction, State } from "@thing/store";
+import { StateAction, State } from "@thing/store";
 import { Draft } from "immer";
 
-export const eventHandler = (state: Draft<State>, action: ReduxAction) => {
+export const eventHandler = (state: Draft<State>, action: StateAction) => {
   switch (action.type) {
     case "INCREMENT":
       state.count += 1;

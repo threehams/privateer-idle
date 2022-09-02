@@ -41,6 +41,9 @@ const main = async () => {
   worker.addEventListener("message", (event: { data: ReduxAction }) => {
     const action = event.data;
 
+    if (action.type === "READY") {
+      worker.postMessage({ type: "INITIAL", payload: state });
+    }
     const [nextState, patches] = produceWithPatches(state, (draft) => {
       if (action.type === "RESET_GAME") {
         localForage.removeItem(savedGameKey);

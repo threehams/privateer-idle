@@ -5,7 +5,7 @@ import { useDispatch } from "./StateProvider";
 
 export const Reset = () => {
   const dispatch = useDispatch();
-  const [resetState, send] = useStateMachine()({
+  const [resetState, send] = useStateMachine({
     initial: "inactive",
     states: {
       inactive: {
@@ -23,7 +23,7 @@ export const Reset = () => {
         on: {
           INACTIVE: "inactive",
         },
-        effect: (sendEvent) => {
+        effect: ({ send: sendEvent }) => {
           dispatch({ type: "RESET_GAME" });
           sendEvent("INACTIVE");
         },

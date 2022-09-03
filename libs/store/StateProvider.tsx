@@ -2,7 +2,8 @@ import {
   createContext,
   useContextSelector,
 } from "@fluentui/react-context-selector";
-import { StateAction, State } from "@thing/store";
+import { State } from "./State";
+import { StateAction } from "./StateAction";
 import { createContext as reactCreateContext, useContext } from "react";
 
 const StateContext = createContext<State>(undefined as any);

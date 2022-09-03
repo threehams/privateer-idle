@@ -1,6 +1,6 @@
 import { Button } from "@thing/ui";
 import React from "react";
-import { useDispatch, useSelector } from "./StateProvider";
+import { useDispatch, useSelector } from "@thing/store";
 
 export const Actions = () => {
   const autoIncrement = useSelector((state) => state.autoIncrement);

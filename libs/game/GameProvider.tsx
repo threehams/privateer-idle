@@ -1,6 +1,6 @@
 import React from "react";
 import { useWorker } from "@thing/worker";
-import { DispatchProvider, StateProvider } from "./StateProvider";
+import { DispatchProvider, StateProvider } from "../store/StateProvider";
 import { Game } from "./Game";
 
 const children = <Game />;

@@ -1,4 +1,4 @@
-import { useSelector } from "./StateProvider";
+import { useSelector } from "../../store/StateProvider";
 
 type Props = {
   className?: string;

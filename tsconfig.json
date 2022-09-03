@@ -24,7 +24,8 @@
       "@thing/store": ["./libs/store/index.ts"],
       "@thing/worker": ["./libs/worker/index.ts"],
       "@thing/data": ["./libs/data/index.ts"],
-      "@thing/game": ["./libs/game/index.ts"]
+      "@thing/game": ["./libs/game/index.ts"],
+      "@thing/panels/ship": ["./libs/panels/ship/index.ts"]
     },
     "rootDir": ".",
     "skipLibCheck": true,

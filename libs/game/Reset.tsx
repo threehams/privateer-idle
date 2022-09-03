@@ -1,7 +1,7 @@
 import useStateMachine from "@cassiozen/usestatemachine";
 import { Button } from "@thing/ui";
 import React from "react";
-import { useDispatch } from "./StateProvider";
+import { useDispatch } from "../store/StateProvider";
 
 export const Reset = () => {
   const dispatch = useDispatch();

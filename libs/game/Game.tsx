@@ -1,7 +1,7 @@
 import React from "react";
-import { Actions } from "./Actions";
+import { Actions } from "@thing/panels/ship";
 import { Reset } from "./Reset";
-import { Status } from "./Status";
+import { Status } from "../panels/ship/Status";
 
 export const Game = () => {
   return (

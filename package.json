@@ -29,6 +29,7 @@
     "immer": "^9.0.15",
     "local-cypress": "^1.2.6",
     "localforage": "^1.10.0",
+    "lodash": "^4.17.21",
     "next": "12.2.5",
     "react": "18.2.0",
     "react-dom": "18.2.0",

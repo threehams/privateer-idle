@@ -3,15 +3,8 @@ import { Draft } from "immer";
 
 export const eventHandler = (state: Draft<State>, action: StateAction) => {
   switch (action.type) {
-    case "INCREMENT":
-      state.count += 1;
+    case "SELECT_TASK":
+      state.currentTask = action.payload.task;
       break;
-    case "AUTO_INCREMENT": {
-      if (state.count >= 10 * (state.autoIncrement + 1)) {
-        state.count -= 10 * (state.autoIncrement + 1);
-        state.autoIncrement += 1;
-        break;
-      }
-    }
   }
 };

@@ -3,23 +3,33 @@ import React from "react";
 import { useDispatch, useSelector } from "@thing/store";
 
 export const Actions = () => {
-  const autoIncrement = useSelector((state) => state.autoIncrement);
+  const currentTask = useSelector((state) => state.currentTask);
   const dispatch = useDispatch();
   return (
     <>
       <Button
         onClick={() => {
-          dispatch({ type: "INCREMENT" });
+          dispatch({ type: "SELECT_TASK", payload: { task: "mining" } });
         }}
+        active={currentTask === "mining"}
       >
-        Make a thing
+        Mining
       </Button>
       <Button
         onClick={() => {
-          dispatch({ type: "AUTO_INCREMENT" });
+          dispatch({ type: "SELECT_TASK", payload: { task: "trading" } });
         }}
+        active={currentTask === "trading"}
       >
-        Make a thing maker (costs {(autoIncrement + 1) * 10} things)
+        Trading
+      </Button>
+      <Button
+        onClick={() => {
+          dispatch({ type: "SELECT_TASK", payload: { task: "fighting" } });
+        }}
+        active={currentTask === "fighting"}
+      >
+        Fighting
       </Button>
     </>
   );

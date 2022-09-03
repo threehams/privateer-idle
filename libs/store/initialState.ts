@@ -1,10 +1,10 @@
 import { State } from "./State";
 
 export const initialState: State = {
+  currentShip: "1",
   version: "0.1",
-  count: 0,
-  autoIncrement: 0,
+  currentTask: "mining",
   timers: {
-    autoIncrement: 0,
+    mining: 0,
   },
 };

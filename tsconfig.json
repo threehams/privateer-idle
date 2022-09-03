@@ -25,7 +25,8 @@
       "@thing/worker": ["./libs/worker/index.ts"],
       "@thing/data": ["./libs/data/index.ts"],
       "@thing/game": ["./libs/game/index.ts"],
-      "@thing/panels/ship": ["./libs/panels/ship/index.ts"]
+      "@thing/panels/ship": ["./libs/panels/ship/index.ts"],
+      "@thing/panels/tasks": ["./libs/panels/tasks/index.ts"]
     },
     "rootDir": ".",
     "skipLibCheck": true,

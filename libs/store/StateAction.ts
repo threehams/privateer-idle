@@ -1,6 +1,6 @@
+import { Task } from "./State";
+
 type ReadyAction = { type: "READY" };
-type IncrementAction = { type: "INCREMENT" };
-type AutoIncrementAction = { type: "AUTO_INCREMENT" };
 type ResetGameAction = { type: "RESET_GAME" };
 type ImportGameAction = {
   type: "IMPORT_GAME";
@@ -8,10 +8,15 @@ type ImportGameAction = {
     value: string;
   };
 };
+type SelectTaskAction = {
+  type: "SELECT_TASK";
+  payload: {
+    task: Task;
+  };
+};
 
 export type StateAction =
   | ReadyAction
   | ImportGameAction
-  | IncrementAction
-  | AutoIncrementAction
-  | ResetGameAction;
+  | ResetGameAction
+  | SelectTaskAction;

@@ -8,6 +8,7 @@ type ButtonProps = {
   className?: string;
   style?: CSSProperties;
   variant?: "primary" | "danger";
+  active?: boolean;
 };
 export const Button = React.memo(
   ({
@@ -16,6 +17,7 @@ export const Button = React.memo(
     disabled,
     onClick,
     variant = "primary",
+    active,
   }: ButtonProps) => {
     return (
       <button
@@ -27,7 +29,9 @@ export const Button = React.memo(
         }}
         className={clsx(
           "border border-gray-50 border-solid cursor-pointer px-3 relative",
+          variant === "primary" && "bg-gray-800 text-white",
           variant === "danger" && "bg-red-900 text-white",
+          active && "bg-gray-50 text-gray-800",
           className,
         )}
       >

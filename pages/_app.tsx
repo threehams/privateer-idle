@@ -1,7 +1,7 @@
 import { setAutoFreeze } from "immer";
 import { AppProps } from "next/app";
 import React from "react";
-import "../styles/global.css";
+import "tailwindcss/tailwind.css";
 
 setAutoFreeze(false);
 

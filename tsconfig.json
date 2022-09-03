@@ -23,7 +23,8 @@
       "@thing/utils": ["./libs/utils/index.ts"],
       "@thing/store": ["./libs/store/index.ts"],
       "@thing/worker": ["./libs/worker/index.ts"],
-      "@thing/data": ["./libs/data/index.ts"]
+      "@thing/data": ["./libs/data/index.ts"],
+      "@thing/game": ["./libs/game/index.ts"]
     },
     "rootDir": ".",
     "skipLibCheck": true,

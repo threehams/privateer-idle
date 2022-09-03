@@ -14,8 +14,8 @@
     "typescript": "cross-env tsc && tsc -p ./cypress/tsconfig.json",
     "format": "prettier --write .",
     "cy:test": "start-server-and-test build:start http://localhost:3000 cy:run",
-    "cy:open": "cypress open",
-    "cy:run": "cypress run",
+    "cy:open": "cypress open --e2e --browser chrome",
+    "cy:run": "cypress run --e2e --browser chrome",
     "cy:dev": "start-server-and-test dev http://localhost:3000 cy:open",
     "cy:prod": "start-server-and-test build:start http://localhost:3000 cy:open"
   },

@@ -7,6 +7,9 @@ module.exports = {
     "./libs/**/*.{ts,tsx}",
   ],
   theme: {
+    fontFamily: {
+      monospace: ['"IBM Plex Mono"', "sans-serif"],
+    },
     colors: {
       black: "#000000",
       gray: colors.gray,

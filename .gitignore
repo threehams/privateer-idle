@@ -5,6 +5,7 @@
 /tmp
 /out-tsc
 apps/frontend/out
+.swc
 
 # dependencies
 node_modules

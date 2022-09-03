@@ -1,6 +1,7 @@
-import { beforeEach, cy } from "local-cypress";
+import { beforeEach, cy, Cypress } from "local-cypress";
 
 beforeEach(() => {
+  console.log(Cypress.config());
   cy.visit("/");
   cy.clearLocalStorage();
   cy.window().then((win) => {

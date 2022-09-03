@@ -11,5 +11,6 @@ describe("things", () => {
     cy.findByText(/You have 10 things/i);
     cy.findByText(/Make a thing maker/i).click();
     cy.findByText(/Making 1 thing per second/);
+    cy.findByText(/You have 1 thing/);
   });
 });

@@ -1,3 +1,5 @@
+import { describe, it, cy } from "local-cypress";
+
 describe("things", () => {
   it("makes a thing", () => {
     cy.visit("/");

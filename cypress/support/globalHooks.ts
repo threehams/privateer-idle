@@ -1,4 +1,4 @@
-export {};
+import { beforeEach, cy } from "local-cypress";
 
 beforeEach(() => {
   cy.visit("/");

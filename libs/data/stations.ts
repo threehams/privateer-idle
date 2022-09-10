@@ -16,6 +16,7 @@ export type Station = {
   type: "station";
   variant: StationType;
   purchases: { id: ResourceId; value: number }[];
+  sells: { id: ResourceId; value: number }[];
   systemIndex: number;
   /** Planet, moon, or belt ID */
   locationId: string;
@@ -27,8 +28,12 @@ export const stations: { [Key in StationId]: Station } = {
     id: "station-1",
     variant: "industrial",
     purchases: [
-      { id: "iron-bars", value: 10 },
-      { id: "gold-bars", value: 20 },
+      { id: "iron-bars", value: 15 },
+      { id: "gold-bars", value: 35 },
+    ],
+    sells: [
+      { id: "furniture", value: 45 },
+      { id: "semiconductors", value: 105 },
     ],
     systemIndex: 0,
     type: "station",
@@ -41,6 +46,10 @@ export const stations: { [Key in StationId]: Station } = {
     purchases: [
       { id: "iron-ore", value: 3 },
       { id: "gold-ore", value: 9 },
+    ],
+    sells: [
+      { id: "iron-bars", value: 10 },
+      { id: "gold-bars", value: 20 },
     ],
     systemIndex: 0,
     type: "station",

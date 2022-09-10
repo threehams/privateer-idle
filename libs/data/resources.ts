@@ -21,8 +21,8 @@ export const resources: { [Key in ResourceId]: Resource } = {
     id: "gold-ore",
     name: "Gold Ore",
     range: {
-      min: 50,
-      max: 90,
+      min: 15,
+      max: 25,
     },
   },
   "iron-bars": {
@@ -37,8 +37,24 @@ export const resources: { [Key in ResourceId]: Resource } = {
     id: "gold-bars",
     name: "Gold Bars",
     range: {
-      min: 150,
-      max: 270,
+      min: 30,
+      max: 50,
+    },
+  },
+  furniture: {
+    id: "furniture",
+    name: "Furniture",
+    range: {
+      min: 40,
+      max: 60,
+    },
+  },
+  semiconductors: {
+    id: "semiconductors",
+    name: "Semiconductors",
+    range: {
+      min: 100,
+      max: 120,
     },
   },
 };

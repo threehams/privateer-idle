@@ -115,11 +115,12 @@ export const updateMining: Updater = (state, delta) => {
         };
       }
       break;
-    case "mining":
+    case "mining": {
       if (currentLocation.type !== "belt") {
         throw new Error("Attempted to mine something that wasn't a belt");
       }
-      if (cargoCount(ship.cargo) > 0) {
+      const maxCargo = ships[ship.shipId].cargo;
+      if (cargoCount(ship.cargo) >= maxCargo) {
         travelToSell(state);
         return;
       } else {
@@ -129,6 +130,7 @@ export const updateMining: Updater = (state, delta) => {
         };
       }
       break;
+    }
     case "collecting": {
       const belt = findShipLocation(state.currentShipLocation);
       if (belt.type !== "belt") {

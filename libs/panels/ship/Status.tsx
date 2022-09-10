@@ -7,6 +7,7 @@ export const Status = ({ className }: Props) => {
   const timer = useSelector((state) => state.timers.ship);
   const currentAction = useSelector((state) => state.currentShipAction);
   const player = useSelector((state) => state.player);
+  const cargo = useSelector((state) => state.ships[state.currentShipId].cargo);
 
   return (
     <div className={className}>
@@ -18,6 +19,16 @@ export const Status = ({ className }: Props) => {
         )}
         .
       </div>
+      <h2>Cargo</h2>
+      <ul>
+        {cargo.map(({ id, count }) => {
+          return (
+            <li key={id}>
+              {id}: {count}
+            </li>
+          );
+        })}
+      </ul>
     </div>
   );
 };

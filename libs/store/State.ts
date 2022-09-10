@@ -32,7 +32,7 @@ export type ShipLocation = {
 
 type BlockedReason = "NO_BELT" | "NO_TRADE" | "NO_STATION";
 
-type ShipAction =
+export type ShipAction =
   | { type: "blocked"; reason: BlockedReason }
   | { type: "idling" }
   | { type: "launching" }
@@ -52,6 +52,9 @@ export type State = {
   currentShipId: string;
   currentShipAction: ShipAction;
   currentShipLocation: ShipLocation;
+  player: {
+    credits: number;
+  };
   timers: {
     ship: number;
   };

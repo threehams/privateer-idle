@@ -15,8 +15,8 @@ export type Ship = {
   };
 };
 
-export const ships: Ship[] = [
-  {
+export const ships: { [Key in ShipId]: Ship } = {
+  "light-fighter-1": {
     name: "Stralthi",
     id: "light-fighter-1",
     cargo: 5,
@@ -31,4 +31,4 @@ export const ships: Ship[] = [
       countermeasures: 1,
     },
   },
-];
+};

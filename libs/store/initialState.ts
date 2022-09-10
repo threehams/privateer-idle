@@ -1,6 +1,9 @@
 import { State } from "./State";
 
 export const initialState: State = {
+  player: {
+    credits: 0,
+  },
   currentShipId: "ship-1",
   version: "0.1",
   currentTask: "mining",
@@ -19,7 +22,20 @@ export const initialState: State = {
       cargo: [],
     },
   },
-  belts: {},
+  belts: {
+    "belt-1": {
+      scanned: true,
+      cargo: [],
+      ships: [],
+    },
+  },
   planets: {},
-  stations: {},
+  stations: {
+    "station-1": {
+      scanned: true,
+    },
+    "station-2": {
+      scanned: true,
+    },
+  },
 };

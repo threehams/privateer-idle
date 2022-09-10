@@ -73,7 +73,7 @@ Finite over time, requires cooldown
 
 #### Income
 
-Higher income. Can be traded for crypto(?)
+Higher income. Can be traded for crypto(?) or whatever the "only useful for illegal stuff" currency is in the future
 
 ## Ship
 

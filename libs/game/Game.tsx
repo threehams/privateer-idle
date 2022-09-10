@@ -1,5 +1,5 @@
 import React from "react";
-import { Actions } from "@thing/panels/ship";
+import { Actions } from "@space/panels/ship";
 import { Reset } from "./Reset";
 import { Status } from "../panels/ship/Status";
 import { ImportGame } from "./ImportGame";

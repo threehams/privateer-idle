@@ -1,4 +1,4 @@
-import { initialState } from "@thing/store";
+import { initialState } from "@space/store";
 import { migrateSave } from "./migrateSave";
 
 describe("something", () => {

@@ -1,6 +1,6 @@
-import { Button } from "@thing/ui";
+import { Button } from "@space/ui";
 import React from "react";
-import { useDispatch, useSelector } from "@thing/store";
+import { useDispatch, useSelector } from "@space/store";
 
 export const Actions = () => {
   const currentTask = useSelector((state) => state.currentTask);

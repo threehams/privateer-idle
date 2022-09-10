@@ -4,7 +4,12 @@ type Props = {
   className?: string;
 };
 export const Status = ({ className }: Props) => {
-  const currentTask = useSelector((state) => state.currentTask);
+  const timer = useSelector((state) => state.timers.ship);
+  const currentAction = useSelector((state) => state.currentShipAction);
 
-  return <div className={className}>You are {currentTask}.</div>;
+  return (
+    <div className={className}>
+      You are {currentAction.type} ({timer}).
+    </div>
+  );
 };

@@ -1,4 +1,4 @@
-import { StateAction, State, initialState } from "@thing/store";
+import { StateAction, State, initialState } from "@space/store";
 import { enablePatches, produceWithPatches } from "immer";
 import localForage from "localforage";
 import { eventHandler, gameLoop } from "./gameLoop";

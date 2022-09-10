@@ -1,4 +1,4 @@
-import { StateAction, State } from "@thing/store";
+import { StateAction, State } from "@space/store";
 import { Draft } from "immer";
 
 export const eventHandler = (state: Draft<State>, action: StateAction) => {

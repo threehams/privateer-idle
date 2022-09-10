@@ -1,5 +1,5 @@
 import React from "react";
-import { useWorker } from "@thing/worker";
+import { useWorker } from "@space/worker";
 import { DispatchProvider, StateProvider } from "../store/StateProvider";
 import { Game } from "./Game";
 

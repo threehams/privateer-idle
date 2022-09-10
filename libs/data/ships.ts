@@ -1,9 +1,24 @@
-import { Ship } from "@thing/store";
+export type ShipId = string;
+export type Ship = {
+  name: string;
+  id: ShipId;
+  speed: number;
+  cargo: number;
+  shields: number;
+  hull: number;
+  fuel: number;
+  hardpoints: {
+    gun: number;
+    missile: number;
+    torpedo: number;
+    countermeasures: number;
+  };
+};
 
 export const ships: Ship[] = [
   {
     name: "Stralthi",
-    key: "light-fighter-1",
+    id: "light-fighter-1",
     cargo: 5,
     speed: 6,
     fuel: 0,

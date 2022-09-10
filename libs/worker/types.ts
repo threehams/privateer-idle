@@ -1,4 +1,4 @@
-import { State } from "@thing/store";
+import { State } from "@space/store";
 import { Patch } from "immer";
 
 export type Message =

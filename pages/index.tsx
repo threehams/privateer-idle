@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { GameProvider } from "@thing/game";
+import { GameProvider } from "@space/game";
 
 export const Index = () => {
   const [mounted, setMounted] = useState(false);

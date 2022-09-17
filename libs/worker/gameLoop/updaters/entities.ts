@@ -1,5 +1,4 @@
 import {
-  systems,
   BeltId,
   belts,
   StationId,
@@ -18,7 +17,7 @@ export const findShipLocation = (
   state: State,
   location: ShipLocation,
 ): SystemEntity => {
-  const system = systems[location.systemIndex];
+  const system = state.systems[location.systemIndex];
   const found = system.entityIds.find((id) => id === location.id);
   if (!found) {
     throw new Error(

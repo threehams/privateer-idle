@@ -1,5 +1,5 @@
 import { Updater } from "./Updater";
-import { systems, times } from "@space/data";
+import { times } from "@space/data";
 import { State, SystemEntity } from "@space/store";
 import {
   findShipLocation,
@@ -94,16 +94,11 @@ export const updateExploring: Updater = (state, delta) => {
 
 const findUnexploredLocation = (state: State): SystemEntity | undefined => {
   const ship = state.ships[state.currentShipId];
-  const currentSystem = systems[ship.location.systemIndex];
+  const currentSystem = state.systems[ship.location.systemIndex];
   for (const entityId of currentSystem.entityIds) {
-    const scanned =
-      state.belts[entityId]?.scanned ||
-      state.planets[entityId]?.scanned ||
-      state.stars[entityId]?.scanned ||
-      state.stations[entityId]?.scanned;
-
-    if (!scanned) {
-      return findOrCreateEntity(state, entityId);
+    const entity = findOrCreateEntity(state, entityId);
+    if (!entity.scanned) {
+      return entity;
     }
   }
 };

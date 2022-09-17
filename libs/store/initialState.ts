@@ -1,3 +1,4 @@
+import { belts, ships, systems } from "@space/data";
 import { State } from "./State";
 
 export const initialState: State = {
@@ -17,13 +18,14 @@ export const initialState: State = {
   },
   ships: {
     "ship-1": {
+      ...ships["light-fighter-1"],
       id: "ship-1",
-      shipId: "light-fighter-1",
       cargo: [],
     },
   },
   belts: {
     "belt-1": {
+      ...belts["belt-1"],
       scanned: true,
       cargo: [],
       ships: [],
@@ -39,4 +41,5 @@ export const initialState: State = {
     },
   },
   stars: {},
+  systems: [systems[0]],
 };

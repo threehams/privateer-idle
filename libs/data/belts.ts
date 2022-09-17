@@ -1,7 +1,7 @@
 import { ResourceId } from "./resources";
 
 export type BeltId = string;
-export type Belt = {
+export type BeltData = {
   id: BeltId;
   type: "belt";
   name: string;
@@ -9,7 +9,7 @@ export type Belt = {
   resources: ResourceId[];
 };
 
-export const belts: { [Key in BeltId]: Belt } = {
+export const belts: { [Key in BeltId]: BeltData } = {
   "belt-1": {
     id: "belt-1",
     name: "Oort Cloud",

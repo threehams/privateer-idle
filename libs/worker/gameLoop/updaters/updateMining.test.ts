@@ -7,6 +7,7 @@ import {
   ShipLocation,
   State,
 } from "@space/store";
+import { belts } from "@space/data";
 
 describe("updateMining", () => {
   it("launches from a station, after idling in a station", () => {
@@ -61,6 +62,7 @@ describe("updateMining", () => {
       },
       belts: {
         "belt-2": {
+          ...belts["belt-2"],
           scanned: true,
           cargo: [],
           ships: [],
@@ -91,6 +93,7 @@ describe("updateMining", () => {
       },
       belts: {
         "belt-2": {
+          ...belts["belt-2"],
           scanned: true,
           cargo: [],
           ships: [],
@@ -117,6 +120,7 @@ describe("updateMining", () => {
       },
       belts: {
         "belt-2": {
+          ...belts["belt-2"],
           scanned: true,
           cargo: [],
           ships: [],
@@ -147,6 +151,7 @@ describe("updateMining", () => {
         },
         belts: {
           "belt-2": {
+            ...belts["belt-2"],
             scanned: true,
             cargo: [{ id: "gold-ore", count: 1 }],
             ships: [],
@@ -179,6 +184,7 @@ describe("updateMining", () => {
         },
         belts: {
           "belt-2": {
+            ...belts["belt-2"],
             scanned: true,
             cargo: [{ id: "gold-ore", count: 3 }],
             ships: [],
@@ -216,6 +222,7 @@ describe("updateMining", () => {
         },
         belts: {
           "belt-2": {
+            ...belts["belt-2"],
             scanned: true,
             cargo: [{ id: "gold-ore", count: 4 }],
             ships: [],
@@ -223,9 +230,9 @@ describe("updateMining", () => {
         },
         ships: {
           "ship-1": {
+            ...initialState.ships["ship-1"],
             id: "ship-1",
             cargo: [{ id: "gold-ore", count: 4 }],
-            shipId: "light-fighter-1",
           },
         },
       };
@@ -290,8 +297,8 @@ describe("updateMining", () => {
         },
         ships: {
           "ship-1": {
+            ...initialState.ships["ship-1"],
             id: "ship-1",
-            shipId: "light-fighter-1",
             cargo: [
               { id: "iron-bars", count: 1 },
               { id: "gold-ore", count: 4 },
@@ -321,8 +328,8 @@ describe("updateMining", () => {
         },
         ships: {
           "ship-1": {
+            ...initialState.ships["ship-1"],
             id: "ship-1",
-            shipId: "light-fighter-1",
             cargo: [
               { id: "iron-bars", count: 1 },
               { id: "gold-ore", count: 4 },
@@ -355,8 +362,8 @@ describe("updateMining", () => {
         },
         ships: {
           "ship-1": {
+            ...initialState.ships["ship-1"],
             id: "ship-1",
-            shipId: "light-fighter-1",
             cargo: [
               { id: "iron-bars", count: 1 },
               { id: "gold-ore", count: 0 },

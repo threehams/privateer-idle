@@ -1,6 +1,14 @@
 import { Updater } from "./Updater";
-import { belts, planets, stars, stations, systems, times } from "@space/data";
-import { ShipLocation, State, SystemEntity } from "@space/store";
+import {
+  BeltId,
+  belts,
+  planets,
+  stars,
+  stations,
+  systems,
+  times,
+} from "@space/data";
+import { Belt, ShipLocation, State, SystemEntity } from "@space/store";
 
 export const updateExploring: Updater = (state, delta) => {
   state.timers.ship += delta;
@@ -63,7 +71,7 @@ export const updateExploring: Updater = (state, delta) => {
       const entity = findEntity(state.currentShipLocation.id);
       switch (entity.type) {
         case "belt":
-          state.belts[entity.id] ??= { scanned: true, cargo: [], ships: [] };
+          state.belts[entity.id] ??= createBelt(entity.id);
           state.belts[entity.id]!.scanned = true;
           break;
         case "planet":
@@ -120,4 +128,13 @@ const findEntity = (entityId: string): SystemEntity => {
     throw new Error(`no entity found with id ${entityId}`);
   }
   return entity;
+};
+
+const createBelt = (id: BeltId): Belt => {
+  return {
+    ...belts[id],
+    cargo: [],
+    ships: [],
+    scanned: false,
+  };
 };

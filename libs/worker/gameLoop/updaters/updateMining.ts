@@ -1,9 +1,8 @@
 import { Updater } from "./Updater";
 import {
-  Belt,
+  BeltId,
   belts,
   planets,
-  ships,
   stars,
   Station,
   stations,
@@ -11,8 +10,9 @@ import {
   times,
 } from "@space/data";
 import {
+  Belt,
   OwnedCargo,
-  OwnedShip,
+  Ship,
   ShipLocation,
   State,
   SystemEntity,
@@ -118,7 +118,7 @@ export const updateMining: Updater = (state, delta) => {
       if (currentLocation.type !== "belt") {
         throw new Error("Attempted to mine something that wasn't a belt");
       }
-      const maxCargo = ships[ship.shipId].cargo;
+      const maxCargo = ship.stats.cargo;
       if (cargoCount(ship.cargo) >= maxCargo) {
         travelToSell(state);
         return;
@@ -135,7 +135,7 @@ export const updateMining: Updater = (state, delta) => {
       if (belt.type !== "belt") {
         throw new Error("attempted to collect ore outside a belt");
       }
-      const maxCargo = ships[ship.shipId].cargo;
+      const maxCargo = ship.stats.cargo;
       collectOre(state, belt);
       const cargoFull = cargoCount(ship.cargo) >= maxCargo;
       if (!cargoCount(state.belts[belt.id]?.cargo ?? []) && !cargoFull) {
@@ -191,9 +191,9 @@ const findSellStation = (
  * Look through all explored belts and find the best available one for mining.
  */
 const findBelt = (state: State): Belt | undefined => {
-  const systemBelts = findBelts(state.currentShipLocation.systemIndex);
+  const systemBelts = findBelts(state, state.currentShipLocation.systemIndex);
   for (const belt of systemBelts) {
-    if (state.belts[belt.id]?.scanned) {
+    if (belt.scanned) {
       return belt;
     }
   }
@@ -242,7 +242,7 @@ const sellCargo = (state: State) => {
   state.currentShipAction = { type: "idling" };
 };
 
-const canSellCargo = (ship: OwnedShip, station: Station) => {
+const canSellCargo = (ship: Ship, station: Station) => {
   for (const purchase of station.purchases) {
     const available = ship.cargo.find((item) => item.id === purchase.id);
     if (available && available.count > 0) {
@@ -253,7 +253,6 @@ const canSellCargo = (ship: OwnedShip, station: Station) => {
 };
 
 const dropOre = (state: State, belt: Belt): void => {
-  state.belts[belt.id] ??= { cargo: [], scanned: false, ships: [] };
   const resourceId = belts[belt.id].resources[0];
   const existing = state.belts[belt.id]?.cargo.find(
     (item) => item.id === resourceId,
@@ -278,7 +277,7 @@ const collectOre = (state: State, belt: Belt): void => {
     }
     available.count -= 1;
   } else {
-    if (cargoCount(cargo) >= ships[ship.shipId].cargo) {
+    if (cargoCount(cargo) >= ship.stats.cargo) {
       travelToSell(state);
     } else {
       state.currentShipAction = {
@@ -311,12 +310,23 @@ const findEntity = (entityId: string): SystemEntity => {
   return entity;
 };
 
-const findBelts = (systemIndex: number) => {
-  const system = systems[systemIndex];
-  return system.entityIds.map((id) => belts[id]).filter(Boolean);
+const findBelts = (state: State, systemIndex: number): Belt[] => {
+  const system = state.systems[systemIndex];
+  return system.entityIds
+    .map((id) => state.belts[id] ?? createBelt(id))
+    .filter(Boolean);
 };
 
 const findStations = (systemIndex: number) => {
   const system = systems[systemIndex];
   return system.entityIds.map((id) => stations[id]).filter(Boolean);
+};
+
+const createBelt = (id: BeltId): Belt => {
+  return {
+    ...belts[id],
+    cargo: [],
+    ships: [],
+    scanned: false,
+  };
 };

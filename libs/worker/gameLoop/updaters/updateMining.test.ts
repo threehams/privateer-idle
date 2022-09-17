@@ -7,7 +7,7 @@ import {
   ShipLocation,
   State,
 } from "@space/store";
-import { belts } from "@space/data";
+import { belts, planets, stations } from "@space/data";
 
 describe("updateMining", () => {
   it("launches from a station, after idling in a station", () => {
@@ -29,6 +29,13 @@ describe("updateMining", () => {
       currentShipLocation: {
         id: "planet-1",
         systemIndex: 0,
+      },
+      planets: {
+        "planet-1": {
+          ...planets["planet-1"],
+          scanned: true,
+          cargo: [],
+        },
       },
     };
     const result = produce(state, (draft) => {
@@ -65,7 +72,6 @@ describe("updateMining", () => {
           ...belts["belt-2"],
           scanned: true,
           cargo: [],
-          ships: [],
         },
       },
     };
@@ -96,7 +102,6 @@ describe("updateMining", () => {
           ...belts["belt-2"],
           scanned: true,
           cargo: [],
-          ships: [],
         },
       },
     };
@@ -123,7 +128,6 @@ describe("updateMining", () => {
           ...belts["belt-2"],
           scanned: true,
           cargo: [],
-          ships: [],
         },
       },
     };
@@ -154,7 +158,6 @@ describe("updateMining", () => {
             ...belts["belt-2"],
             scanned: true,
             cargo: [{ id: "gold-ore", count: 1 }],
-            ships: [],
           },
         },
       };
@@ -187,7 +190,6 @@ describe("updateMining", () => {
             ...belts["belt-2"],
             scanned: true,
             cargo: [{ id: "gold-ore", count: 3 }],
-            ships: [],
           },
         },
       };
@@ -217,7 +219,9 @@ describe("updateMining", () => {
         },
         stations: {
           "station-2": {
+            ...stations["station-2"],
             scanned: true,
+            cargo: [],
           },
         },
         belts: {
@@ -225,7 +229,6 @@ describe("updateMining", () => {
             ...belts["belt-2"],
             scanned: true,
             cargo: [{ id: "gold-ore", count: 4 }],
-            ships: [],
           },
         },
         ships: {
@@ -268,6 +271,13 @@ describe("updateMining", () => {
           destination: {
             id: "station-2",
             systemIndex: 0,
+          },
+        },
+        belts: {
+          "belt-2": {
+            ...belts["belt-2"],
+            scanned: true,
+            cargo: [],
           },
         },
       };

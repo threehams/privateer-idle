@@ -1,14 +1,14 @@
 import { Updater } from "./Updater";
+import { systems, times } from "@space/data";
+import { State, SystemEntity } from "@space/store";
 import {
-  BeltId,
-  belts,
-  planets,
-  stars,
-  stations,
-  systems,
-  times,
-} from "@space/data";
-import { Belt, ShipLocation, State, SystemEntity } from "@space/store";
+  findShipLocation,
+  findEntity,
+  createBelt,
+  createPlanet,
+  createStation,
+  createStar,
+} from "./entities";
 
 export const updateExploring: Updater = (state, delta) => {
   state.timers.ship += delta;
@@ -21,7 +21,7 @@ export const updateExploring: Updater = (state, delta) => {
   state.timers.ship -= time;
 
   const action = state.currentShipAction;
-  const currentLocation = findShipLocation(state.currentShipLocation);
+  const currentLocation = findShipLocation(state, state.currentShipLocation);
 
   switch (action.type) {
     case "idling": {
@@ -68,22 +68,22 @@ export const updateExploring: Updater = (state, delta) => {
       break;
     }
     case "scanning": {
-      const entity = findEntity(state.currentShipLocation.id);
+      const entity = findEntity(state, state.currentShipLocation.id);
       switch (entity.type) {
         case "belt":
           state.belts[entity.id] ??= createBelt(entity.id);
           state.belts[entity.id]!.scanned = true;
           break;
         case "planet":
-          state.planets[entity.id] ??= { scanned: true, cargo: [], ships: [] };
+          state.planets[entity.id] ??= createPlanet(entity.id);
           state.planets[entity.id]!.scanned = true;
           break;
         case "station":
-          state.stations[entity.id] ??= { scanned: true };
+          state.stations[entity.id] ??= createStation(entity.id);
           state.stations[entity.id]!.scanned = true;
           break;
         case "star":
-          state.stars[entity.id] ??= { scanned: true };
+          state.stars[entity.id] ??= createStar(entity.id);
           state.stars[entity.id]!.scanned = true;
           break;
       }
@@ -102,39 +102,7 @@ const findUnexploredLocation = (state: State): SystemEntity | undefined => {
       state.stations[entityId]?.scanned;
 
     if (!scanned) {
-      return findEntity(entityId);
+      return findEntity(state, entityId);
     }
   }
-};
-
-const findShipLocation = (location: ShipLocation): SystemEntity => {
-  const system = systems[location.systemIndex];
-  const found = system.entityIds.find((id) => id === location.id);
-  if (!found) {
-    throw new Error(
-      `no entity found with id ${location.id} in system ${location.systemIndex}`,
-    );
-  }
-
-  return findEntity(found);
-};
-const findEntity = (entityId: string): SystemEntity => {
-  const entity =
-    stations[entityId] ??
-    belts[entityId] ??
-    planets[entityId] ??
-    stars[entityId];
-  if (!entity) {
-    throw new Error(`no entity found with id ${entityId}`);
-  }
-  return entity;
-};
-
-const createBelt = (id: BeltId): Belt => {
-  return {
-    ...belts[id],
-    cargo: [],
-    ships: [],
-    scanned: false,
-  };
 };

@@ -1,14 +1,5 @@
 import { Updater } from "./Updater";
-import {
-  BeltId,
-  belts,
-  planets,
-  stars,
-  Station,
-  stations,
-  systems,
-  times,
-} from "@space/data";
+import { BeltId, belts, stations, systems, times } from "@space/data";
 import {
   Belt,
   OwnedCargo,
@@ -17,6 +8,7 @@ import {
   State,
   SystemEntity,
 } from "@space/store";
+import { Station } from "libs/store/Station";
 
 export const updateMining: Updater = (state, delta) => {
   state.timers.ship += delta;
@@ -30,7 +22,7 @@ export const updateMining: Updater = (state, delta) => {
 
   const ship = state.ships[state.currentShipId];
   const action = state.currentShipAction;
-  const currentLocation = findShipLocation(state.currentShipLocation);
+  const currentLocation = findShipLocation(state, state.currentShipLocation);
   switch (action.type) {
     case "idling":
       if (currentLocation.type === "station") {
@@ -72,7 +64,7 @@ export const updateMining: Updater = (state, delta) => {
       break;
     case "traveling":
       state.currentShipLocation = action.destination;
-      const destination = findShipLocation(action.destination);
+      const destination = findShipLocation(state, action.destination);
       switch (destination.type) {
         case "belt":
           state.currentShipAction = {
@@ -91,7 +83,7 @@ export const updateMining: Updater = (state, delta) => {
       }
       break;
     case "selling": {
-      const station = findShipLocation(state.currentShipLocation);
+      const station = findShipLocation(state, state.currentShipLocation);
       if (station.type !== "station") {
         throw new Error("Attempted to mine something that wasn't a belt");
       }
@@ -131,7 +123,7 @@ export const updateMining: Updater = (state, delta) => {
       break;
     }
     case "collecting": {
-      const belt = findShipLocation(state.currentShipLocation);
+      const belt = findShipLocation(state, state.currentShipLocation);
       if (belt.type !== "belt") {
         throw new Error("attempted to collect ore outside a belt");
       }
@@ -287,7 +279,10 @@ const collectOre = (state: State, belt: Belt): void => {
   }
 };
 
-const findShipLocation = (location: ShipLocation): SystemEntity => {
+const findShipLocation = (
+  state: State,
+  location: ShipLocation,
+): SystemEntity => {
   const system = systems[location.systemIndex];
   const found = system.entityIds.find((id) => id === location.id);
   if (!found) {
@@ -296,14 +291,14 @@ const findShipLocation = (location: ShipLocation): SystemEntity => {
     );
   }
 
-  return findEntity(found);
+  return findEntity(state, found);
 };
-const findEntity = (entityId: string): SystemEntity => {
+const findEntity = (state: State, entityId: string): SystemEntity => {
   const entity =
-    stations[entityId] ??
-    belts[entityId] ??
-    planets[entityId] ??
-    stars[entityId];
+    state.stations[entityId] ??
+    state.belts[entityId] ??
+    state.planets[entityId] ??
+    state.stars[entityId];
   if (!entity) {
     throw new Error(`no entity found with id ${entityId}`);
   }
@@ -326,7 +321,6 @@ const createBelt = (id: BeltId): Belt => {
   return {
     ...belts[id],
     cargo: [],
-    ships: [],
     scanned: false,
   };
 };

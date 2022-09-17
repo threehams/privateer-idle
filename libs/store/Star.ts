@@ -1,7 +1,7 @@
-import { BeltData } from "@space/data";
+import { StarData } from "@space/data";
 import { Cargo } from "./Cargo";
 
-export type Belt = BeltData & {
+export type Star = StarData & {
   cargo: Cargo[];
   scanned: boolean;
 };

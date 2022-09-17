@@ -10,7 +10,7 @@ export type StationType =
   | "refinery";
 
 export type StationId = string;
-export type Station = {
+export type StationData = {
   id: StationId;
   name: string;
   type: "station";
@@ -22,7 +22,7 @@ export type Station = {
   locationId: string;
 };
 
-export const stations: { [Key in StationId]: Station } = {
+export const stations: { [Key in StationId]: StationData } = {
   "station-1": {
     name: "Hearth",
     id: "station-1",

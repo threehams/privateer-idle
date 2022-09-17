@@ -1,17 +1,16 @@
 import {
   BeltId,
   PlanetId,
-  Planet,
   ResourceId,
   StationId,
-  Station,
-  Star,
   StarId,
   System,
 } from "@space/data";
-import { Cargo } from "./Cargo";
 import { Ship, ShipId } from "./Ship";
 import { Belt } from "./Belt";
+import { Station } from "./Station";
+import { Planet } from "./Planet";
+import { Star } from "./Star";
 
 export type Version = "0.1";
 
@@ -62,27 +61,19 @@ export type State = {
     ship: number;
   };
   ships: {
-    [Id in string]: Ship;
+    [Id in ShipId]: Ship;
   };
   belts: Partial<{
     [Id in BeltId]: Belt;
   }>;
   planets: Partial<{
-    [Id in PlanetId]: {
-      cargo: Cargo[];
-      ships: ShipId[];
-      scanned: boolean;
-    };
+    [Id in PlanetId]: Planet;
   }>;
   stars: Partial<{
-    [Id in StarId]: {
-      scanned: boolean;
-    };
+    [Id in StarId]: Star;
   }>;
   stations: Partial<{
-    [Id in StationId]: {
-      scanned: boolean;
-    };
+    [Id in StationId]: Station;
   }>;
   systems: System[];
 };

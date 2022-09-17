@@ -1,5 +1,5 @@
 export type PlanetId = string;
-export type Planet = {
+export type PlanetData = {
   id: PlanetId;
   name: string;
   type: "planet";
@@ -8,7 +8,7 @@ export type Planet = {
   moonIds: string[];
 };
 
-export const planets: { [Key in PlanetId]: Planet } = {
+export const planets: { [Key in PlanetId]: PlanetData } = {
   "planet-1": {
     id: "planet-1",
     name: "Mercury",

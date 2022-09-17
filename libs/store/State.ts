@@ -8,11 +8,12 @@ import {
   StationId,
   Station,
   Star,
+  StarId,
 } from "@space/data";
 
 export type Version = "0.1";
 
-export type Task = "mining" | "trading" | "fighting";
+export type Task = "mining" | "trading" | "fighting" | "exploring";
 export type SystemEntity = Belt | Planet | Station | Star;
 
 export type OwnedCargo = {
@@ -30,7 +31,12 @@ export type ShipLocation = {
   id: string;
 };
 
-type BlockedReason = "NO_BELT" | "NO_TRADE" | "NO_STATION";
+type BlockedReason =
+  | "NO_BELT"
+  | "NO_TRADE"
+  | "NO_STATION"
+  | "FULLY_EXPLORED"
+  | "TOO_DANGEROUS";
 
 export type ShipAction =
   | { type: "blocked"; reason: BlockedReason }
@@ -72,6 +78,11 @@ export type State = {
     [Id in PlanetId]: {
       cargo: OwnedCargo[];
       ships: OwnedShip[];
+      scanned: boolean;
+    };
+  }>;
+  stars: Partial<{
+    [Id in StarId]: {
       scanned: boolean;
     };
   }>;

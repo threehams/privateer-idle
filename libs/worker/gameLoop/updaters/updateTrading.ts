@@ -18,10 +18,9 @@ import {
   SystemEntity,
 } from "@space/store";
 
-export const updateMining: Updater = (state, delta) => {
+export const updateTrading: Updater = (state, delta) => {
   state.timers.ship += delta;
   const time = times[state.currentShipAction.type];
-  // calculate cost of current action for task
 
   if (state.timers.ship < time) {
     return;
@@ -31,17 +30,12 @@ export const updateMining: Updater = (state, delta) => {
   const ship = state.ships[state.currentShipId];
   const action = state.currentShipAction;
   const currentLocation = findShipLocation(state.currentShipLocation);
+
   switch (action.type) {
     case "idling":
-      if (currentLocation.type === "station") {
-        state.currentShipAction = {
-          type: "launching",
-        };
-      } else {
-        state.currentShipAction = {
-          type: "planning",
-        };
-      }
+      state.currentShipAction = {
+        type: "planning",
+      };
       break;
     case "launching":
       state.currentShipAction = {

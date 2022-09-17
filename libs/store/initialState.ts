@@ -38,4 +38,5 @@ export const initialState: State = {
       scanned: true,
     },
   },
+  stars: {},
 };

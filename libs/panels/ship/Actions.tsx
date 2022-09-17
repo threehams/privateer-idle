@@ -31,6 +31,14 @@ export const Actions = () => {
       >
         Fighting
       </Button>
+      <Button
+        onClick={() => {
+          dispatch({ type: "SELECT_TASK", payload: { task: "exploring" } });
+        }}
+        active={currentTask === "exploring"}
+      >
+        Exploring
+      </Button>
     </>
   );
 };

@@ -8,25 +8,32 @@ describe("updateExploring", () => {
       const state: State = {
         ...initialState,
       };
-      produce(state, (draft) => {
+      const result = produce(state, (draft) => {
         updateExploring(draft, 1000);
-        expect(draft.currentShipAction).toEqual({ type: "launching" });
       });
+      const ship = result.ships[result.currentShipId];
+      expect(ship.action).toEqual({ type: "launching" });
     });
 
     it("plans, if not in a station", () => {
       const state: State = {
         ...initialState,
-        currentShipLocation: {
-          id: "belt-1",
-          systemIndex: 0,
+        ships: {
+          "ship-1": {
+            ...initialState.ships["ship-1"],
+            location: {
+              id: "belt-1",
+              systemIndex: 0,
+            },
+          },
         },
       };
-      produce(state, (draft) => {
+      const result = produce(state, (draft) => {
         updateExploring(draft, 1000);
-        expect(draft.currentShipAction).toEqual<ShipAction>({
-          type: "planning",
-        });
+      });
+      const ship = result.ships[result.currentShipId];
+      expect(ship.action).toEqual<ShipAction>({
+        type: "planning",
       });
     });
   });

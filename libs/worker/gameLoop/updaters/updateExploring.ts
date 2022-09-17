@@ -12,7 +12,8 @@ import {
 
 export const updateExploring: Updater = (state, delta) => {
   state.timers.ship += delta;
-  const time = times[state.currentShipAction.type];
+  const ship = state.ships[state.currentShipId];
+  const time = times[ship.action.type];
   // calculate cost of current action for task
 
   if (state.timers.ship < time) {
@@ -20,24 +21,23 @@ export const updateExploring: Updater = (state, delta) => {
   }
   state.timers.ship -= time;
 
-  const action = state.currentShipAction;
-  const currentLocation = findShipLocation(state, state.currentShipLocation);
+  const currentLocation = findShipLocation(state, ship.location);
 
-  switch (action.type) {
+  switch (ship.action.type) {
     case "idling": {
       if (currentLocation.type === "station") {
-        state.currentShipAction = {
+        ship.action = {
           type: "launching",
         };
       } else {
-        state.currentShipAction = {
+        ship.action = {
           type: "planning",
         };
       }
       break;
     }
     case "launching": {
-      state.currentShipAction = {
+      ship.action = {
         type: "planning",
       };
       break;
@@ -45,13 +45,13 @@ export const updateExploring: Updater = (state, delta) => {
     case "planning": {
       const destination = findUnexploredLocation(state);
       if (!destination) {
-        state.currentShipAction = {
+        ship.action = {
           type: "blocked",
           reason: "FULLY_EXPLORED",
         };
         return;
       }
-      state.currentShipAction = {
+      ship.action = {
         type: "traveling",
         destination: {
           id: destination.id,
@@ -61,14 +61,14 @@ export const updateExploring: Updater = (state, delta) => {
       break;
     }
     case "traveling": {
-      state.currentShipLocation = action.destination;
-      state.currentShipAction = {
+      ship.location = ship.action.destination;
+      ship.action = {
         type: "scanning",
       };
       break;
     }
     case "scanning": {
-      const entity = findOrCreateEntity(state, state.currentShipLocation.id);
+      const entity = findOrCreateEntity(state, ship.location.id);
       switch (entity.type) {
         case "belt":
           state.belts[entity.id] ??= createBelt(entity.id);
@@ -87,13 +87,14 @@ export const updateExploring: Updater = (state, delta) => {
           state.stars[entity.id]!.scanned = true;
           break;
       }
-      state.currentShipAction = { type: "planning" };
+      ship.action = { type: "planning" };
     }
   }
 };
 
 const findUnexploredLocation = (state: State): SystemEntity | undefined => {
-  const currentSystem = systems[state.currentShipLocation.systemIndex];
+  const ship = state.ships[state.currentShipId];
+  const currentSystem = systems[ship.location.systemIndex];
   for (const entityId of currentSystem.entityIds) {
     const scanned =
       state.belts[entityId]?.scanned ||

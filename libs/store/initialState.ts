@@ -11,16 +11,16 @@ export const initialState: State = {
   timers: {
     ship: 0,
   },
-  currentShipAction: { type: "idling" },
-  currentShipLocation: {
-    systemIndex: 0,
-    id: "station-1",
-  },
   ships: {
     "ship-1": {
       ...ships["light-fighter-1"],
       id: "ship-1",
       cargo: [],
+      action: { type: "idling" },
+      location: {
+        systemIndex: 0,
+        id: "station-1",
+      },
     },
   },
   belts: {

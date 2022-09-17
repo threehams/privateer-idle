@@ -6,7 +6,7 @@ export const eventHandler = (state: Draft<State>, action: StateAction) => {
     case "SELECT_TASK":
       state.currentTask = action.payload.task;
       state.timers.ship = 0;
-      state.currentShipAction = {
+      state.ships[state.currentShipId].action = {
         type: "idling",
       };
       break;

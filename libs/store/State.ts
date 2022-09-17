@@ -22,38 +22,10 @@ export type OwnedCargo = {
   count: number;
 };
 
-export type ShipLocation = {
-  systemIndex: number;
-  id: string;
-};
-
-type BlockedReason =
-  | "NO_BELT"
-  | "NO_TRADE"
-  | "NO_STATION"
-  | "FULLY_EXPLORED"
-  | "TOO_DANGEROUS";
-
-export type ShipAction =
-  | { type: "blocked"; reason: BlockedReason }
-  | { type: "idling" }
-  | { type: "launching" }
-  | { type: "planning" }
-  | { type: "traveling"; destination: ShipLocation }
-  | { type: "warping"; destination: number }
-  | { type: "docking" }
-  | { type: "selling" }
-  | { type: "buying" }
-  | { type: "scanning" }
-  | { type: "mining" }
-  | { type: "collecting" };
-
 export type State = {
   version: Version;
   currentTask: Task;
   currentShipId: string;
-  currentShipAction: ShipAction;
-  currentShipLocation: ShipLocation;
   player: {
     credits: number;
   };

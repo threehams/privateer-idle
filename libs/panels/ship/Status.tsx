@@ -5,7 +5,7 @@ type Props = {
 };
 export const Status = ({ className }: Props) => {
   const timer = useSelector((state) => state.timers.ship);
-  const currentAction = useSelector((state) => state.currentShipAction);
+  const currentShip = useSelector((state) => state.ships[state.currentShipId]);
   const player = useSelector((state) => state.player);
   const cargo = useSelector((state) => state.ships[state.currentShipId].cargo);
 
@@ -13,9 +13,9 @@ export const Status = ({ className }: Props) => {
     <div className={className}>
       <div>You have {player.credits} credits.</div>
       <div>
-        You are {currentAction.type} ({timer})
-        {currentAction.type === "traveling" && (
-          <span>to {currentAction.destination.id}</span>
+        You are {currentShip.action.type} ({timer})
+        {currentShip.action.type === "traveling" && (
+          <span>to {currentShip.action.destination.id}</span>
         )}
         .
       </div>

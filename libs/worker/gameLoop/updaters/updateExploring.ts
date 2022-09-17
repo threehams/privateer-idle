@@ -3,7 +3,7 @@ import { systems, times } from "@space/data";
 import { State, SystemEntity } from "@space/store";
 import {
   findShipLocation,
-  findEntity,
+  findOrCreateEntity,
   createBelt,
   createPlanet,
   createStation,
@@ -68,7 +68,7 @@ export const updateExploring: Updater = (state, delta) => {
       break;
     }
     case "scanning": {
-      const entity = findEntity(state, state.currentShipLocation.id);
+      const entity = findOrCreateEntity(state, state.currentShipLocation.id);
       switch (entity.type) {
         case "belt":
           state.belts[entity.id] ??= createBelt(entity.id);
@@ -102,7 +102,7 @@ const findUnexploredLocation = (state: State): SystemEntity | undefined => {
       state.stations[entityId]?.scanned;
 
     if (!scanned) {
-      return findEntity(state, entityId);
+      return findOrCreateEntity(state, entityId);
     }
   }
 };

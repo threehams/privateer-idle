@@ -1,14 +1,8 @@
 import { Updater } from "./Updater";
-import { BeltId, belts, stations, systems, times } from "@space/data";
-import {
-  Belt,
-  OwnedCargo,
-  Ship,
-  ShipLocation,
-  State,
-  SystemEntity,
-} from "@space/store";
+import { belts, stations, systems, times } from "@space/data";
+import { Belt, OwnedCargo, Ship, ShipLocation, State } from "@space/store";
 import { Station } from "libs/store/Station";
+import { createBelt, findShipLocation } from "./entities";
 
 export const updateMining: Updater = (state, delta) => {
   state.timers.ship += delta;
@@ -279,32 +273,6 @@ const collectOre = (state: State, belt: Belt): void => {
   }
 };
 
-const findShipLocation = (
-  state: State,
-  location: ShipLocation,
-): SystemEntity => {
-  const system = systems[location.systemIndex];
-  const found = system.entityIds.find((id) => id === location.id);
-  if (!found) {
-    throw new Error(
-      `no entity found with id ${location.id} in system ${location.systemIndex}`,
-    );
-  }
-
-  return findEntity(state, found);
-};
-const findEntity = (state: State, entityId: string): SystemEntity => {
-  const entity =
-    state.stations[entityId] ??
-    state.belts[entityId] ??
-    state.planets[entityId] ??
-    state.stars[entityId];
-  if (!entity) {
-    throw new Error(`no entity found with id ${entityId}`);
-  }
-  return entity;
-};
-
 const findBelts = (state: State, systemIndex: number): Belt[] => {
   const system = state.systems[systemIndex];
   return system.entityIds
@@ -315,12 +283,4 @@ const findBelts = (state: State, systemIndex: number): Belt[] => {
 const findStations = (systemIndex: number) => {
   const system = systems[systemIndex];
   return system.entityIds.map((id) => stations[id]).filter(Boolean);
-};
-
-const createBelt = (id: BeltId): Belt => {
-  return {
-    ...belts[id],
-    cargo: [],
-    scanned: false,
-  };
 };

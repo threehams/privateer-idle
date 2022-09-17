@@ -26,18 +26,41 @@ export const findShipLocation = (
     );
   }
 
-  return findEntity(state, found);
+  return findOrCreateEntity(state, found);
 };
-export const findEntity = (state: State, entityId: string): SystemEntity => {
+
+// consider changing to a flat list of entities, this is kind of miserable
+export const findOrCreateEntity = (
+  state: State,
+  entityId: string,
+): SystemEntity => {
   const entity =
     state.stations[entityId] ??
     state.belts[entityId] ??
     state.planets[entityId] ??
     state.stars[entityId];
-  if (!entity) {
-    throw new Error(`no entity found with id ${entityId}`);
+
+  if (entity) {
+    return entity;
   }
-  return entity;
+  if (stations[entityId]) {
+    state.stations[entityId] = createStation(entityId);
+    return state.stations[entityId]!;
+  }
+  if (belts[entityId]) {
+    state.belts[entityId] = createBelt(entityId);
+    return state.belts[entityId]!;
+  }
+  if (planets[entityId]) {
+    state.planets[entityId] = createPlanet(entityId);
+    return state.planets[entityId]!;
+  }
+  if (stars[entityId]) {
+    state.stars[entityId] = createStar(entityId);
+    return state.stars[entityId]!;
+  }
+
+  throw new Error(`no entity found with id ${entityId}`);
 };
 
 export const createBelt = (id: BeltId): Belt => {

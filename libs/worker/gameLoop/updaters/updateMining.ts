@@ -2,7 +2,13 @@ import { Updater } from "./Updater";
 import { times } from "@space/data";
 import { Belt, OwnedCargo, Ship, ShipLocation, State } from "@space/store";
 import { Station } from "libs/store/Station";
-import { createBelt, createStation, findShipLocation } from "./entities";
+import {
+  createBelt,
+  createStation,
+  findBelts,
+  findShipLocation,
+  findStations,
+} from "./entities";
 
 export const updateMining: Updater = (state, delta) => {
   state.timers.ship += delta;
@@ -270,20 +276,4 @@ const collectOre = (state: State, belt: Belt): void => {
       };
     }
   }
-};
-
-const findBelts = (state: State, systemIndex: number): Belt[] => {
-  const system = state.systems[systemIndex];
-  return system.entityIds.map((id) => {
-    state.belts[id] ??= createBelt(id);
-    return state.belts[id]!;
-  });
-};
-
-const findStations = (state: State, systemIndex: number): Station[] => {
-  const system = state.systems[systemIndex];
-  return system.entityIds.map((id) => {
-    state.stations[id] ??= createStation(id);
-    return state.stations[id]!;
-  });
 };

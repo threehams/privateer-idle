@@ -2,7 +2,7 @@ import {
   BeltId,
   belts,
   StationId,
-  stations,
+  stations as stationsData,
   PlanetId,
   planets,
   StarId,
@@ -28,6 +28,26 @@ export const findShipLocation = (
   return findOrCreateEntity(state, found);
 };
 
+export const findBelts = (state: State, systemIndex: number): Belt[] => {
+  const system = state.systems[systemIndex];
+  return system.entityIds.map((id) => {
+    state.belts[id] ??= createBelt(id);
+    return state.belts[id]!;
+  });
+};
+
+export const findStations = (state: State, systemIndex: number): Station[] => {
+  const system = state.systems[systemIndex];
+  const stations: Station[] = [];
+  system.entityIds.forEach((id) => {
+    const entity = findOrCreateEntity(state, id);
+    if (entity.type === "station") {
+      stations.push(entity);
+    }
+  });
+  return stations;
+};
+
 // consider changing to a flat list of entities, this is kind of miserable
 export const findOrCreateEntity = (
   state: State,
@@ -42,7 +62,7 @@ export const findOrCreateEntity = (
   if (entity) {
     return entity;
   }
-  if (stations[entityId]) {
+  if (stationsData[entityId]) {
     state.stations[entityId] = createStation(entityId);
     return state.stations[entityId]!;
   }
@@ -72,7 +92,7 @@ export const createBelt = (id: BeltId): Belt => {
 
 export const createStation = (id: StationId): Station => {
   return {
-    ...stations[id],
+    ...stationsData[id],
     cargo: [],
     scanned: false,
   };

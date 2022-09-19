@@ -1,4 +1,4 @@
-import { ShipData } from "@space/data";
+import { ResourceId, ShipData, StationId } from "@space/data";
 import { Cargo } from "./Cargo";
 
 type BlockedReason =
@@ -27,10 +27,16 @@ export type ShipLocation = {
   id: string;
 };
 
+export type TradeQueueItem = {
+  stationId: StationId;
+  type: "buy" | "sell";
+  resourceId: ResourceId;
+};
 export type ShipId = string;
 export type Ship = ShipData & {
   id: ShipId;
   cargo: Cargo[];
   action: ShipAction;
   location: ShipLocation;
+  tradeQueue: TradeQueueItem[];
 };

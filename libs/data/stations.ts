@@ -55,4 +55,17 @@ export const stations: { [Key in StationId]: StationData } = {
     type: "station",
     locationId: "planet-4",
   },
+  "station-3": {
+    name: "Canterbury",
+    id: "station-3",
+    variant: "mining",
+    purchases: [],
+    sells: [
+      { id: "iron-ore", value: 1 },
+      { id: "gold-ore", value: 4 },
+    ],
+    systemIndex: 0,
+    type: "station",
+    locationId: "planet-4",
+  },
 };

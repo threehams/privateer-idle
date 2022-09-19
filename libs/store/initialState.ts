@@ -21,6 +21,7 @@ export const initialState: State = {
         systemIndex: 0,
         id: "station-1",
       },
+      tradeQueue: [],
     },
   },
   belts: {
